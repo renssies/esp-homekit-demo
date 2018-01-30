@@ -44,7 +44,7 @@ void fan_active_callback(homekit_characteristic_t *_ch, homekit_value_t active, 
 void fan_rotation_speed_callback(homekit_characteristic_t *_ch, homekit_value_t speed, void *context);
 
 homekit_characteristic_t fan_active = HOMEKIT_CHARACTERISTIC_(
-    ACTIVE, true, .callback=HOMEKIT_CHARACTERISTIC_CALLBACK(fan_active_callback)
+    ACTIVE, 1, .callback=HOMEKIT_CHARACTERISTIC_CALLBACK(fan_active_callback)
 );
 
 homekit_characteristic_t fan_rotation_speed = HOMEKIT_CHARACTERISTIC_(
@@ -55,6 +55,7 @@ homekit_characteristic_t fan_rotation_speed = HOMEKIT_CHARACTERISTIC_(
                                                                       .unit = homekit_unit_none,
                                                                       .min_value = (float[]) {0},
                                                                       .max_value = (float[]) {3},
+                                                                      .value = HOMEKIT_UINT8_(1),
                                                                       .min_step = (float[]) {1},
                                                               );
 
