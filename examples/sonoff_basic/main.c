@@ -12,8 +12,17 @@
  * in this order, beginning in the (square) pin header
  * next to the button.
  * Next hold down the button and connect the FTDI adapter
- * to your computer. The sonoff is now in flash mode and
- * you can flash the custom firmware.
+ * to your computer. The sonoff is now in flash mode.
+ * If the Sonoff doesn't currently contain a version of
+ * this example, you should first erase the flash.
+ * To erase the flash you simply use the command `erase_flash`
+ * instead of `flash` or `test`.
+ * After erasing the flash, connect the Sonoff in the same
+ * way again (with the button held down).
+ * You can now flash the custom firmware.
+ *
+ * If the esptool shows an error, it is likely that you didn't hold
+ * the button down properly and the sonoff is not in flash mode.
  *
  * WARNING: Do not connect the sonoff to AC while it's
  * connected to the FTDI adapter! This may fry your
