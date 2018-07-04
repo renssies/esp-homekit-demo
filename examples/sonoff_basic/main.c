@@ -43,6 +43,9 @@ const int led_gpio = 13;
 // The GPIO pin that is oconnected to the button on the Sonoff Basic.
 const int button_gpio = 0;
 
+// If the wifi connection is ready. We only allow a reset if the wifi is ready.
+bool wifi_ready = false;
+
 void switch_on_callback(homekit_characteristic_t *_ch, homekit_value_t on, void *context);
 void button_callback(uint8_t gpio, button_event_t event);
 
@@ -111,6 +114,12 @@ void button_callback(uint8_t gpio, button_event_t event) {
             homekit_characteristic_notify(&switch_on, switch_on.value);
             break;
         case button_event_long_press:
+#ifdef DISABLE_LONG_PRESS_RESET
+            return;
+#endif
+            if (!wifi_ready) {
+                return;
+            }
             reset_configuration();
             break;
         default:
@@ -170,6 +179,7 @@ homekit_server_config_t config = {
 };
 
 void on_wifi_ready() {
+    wifi_ready = true;
     homekit_server_init(&config);
 }
 
@@ -187,8 +197,10 @@ void create_accessory_name() {
 }
 
 void user_init(void) {
+#ifdef ENABLE_LOGGING
     uart_set_baud(0, 115200);
-
+#endif
+    
     create_accessory_name();
     
     wifi_config_init("sonoff-switch", NULL, on_wifi_ready);
