@@ -1,4 +1,8 @@
 /*
+This is work in progress code and is currently not functional!
+*/
+
+/*
  * Example of using esp-homekit library to control
  * a simple $5 Sonoff Basic using HomeKit.
  * The esp-wifi-config library is also used in this
